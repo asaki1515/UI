@@ -1,5 +1,6 @@
 package jp.techacademy.minegishi.asaki.ui;
 
+        import android.app.TimePickerDialog;
         import android.content.DialogInterface;
         import android.os.Bundle;
         import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ package jp.techacademy.minegishi.asaki.ui;
         import android.widget.Button;
         import android.widget.TextView;
         import android.widget.EditText;
+        import android.widget.TimePicker;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,17 +33,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 2つのボタンのリスナーにMainActivityが登録されているので、
         // どちらのボタンをタップした時にもMainActivityのonClickメソッドが呼ばれることになる
 
+        Button button3 = (Button) findViewById(R.id.button3);
+        button3.setOnClickListener(this);
+
+
         mTextView = (TextView) findViewById(R.id.textView);  // インスタンスを代入
         mEditText = (EditText) findViewById(R.id.editText);  // インスタンスを代入
     }
 
     @Override     // クラス内でインタフェースのメソッドの中身を実装する時は@Overrideをつける
     public void onClick(View v) {    // onClickメソッドはView.OnClickListenerインタフェースのメソッド。
-                                     // getIdメソッドを呼び出してIDを取得し、条件分岐させる
         if (v.getId() == R.id.button1) {
             mTextView.setText(mEditText.getText().toString());
         } else if (v.getId() == R.id.button2) {
             showAlertDialog();
+        } else if (v.getId() == R.id.button3) {
+            showTimePickerDialog();
         }
     }
 
@@ -83,4 +90,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }   // AlertDialog.BuilderクラスのcreateメソッドでAlertDialogクラスのインスタンスを生成し、showメソッドを呼び出して表示させる
+
+    private void showTimePickerDialog() {
+        // コンストラクタ
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,  // Activity
+                new TimePickerDialog.OnTimeSetListener() { // 無名クラス  OnTimeSetListener（時刻を設定した時にonTimeSetメソッドが呼ばれる）
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {  //OnTimeSetListenerのonTimeSetメソッド
+                        Log.d("UI-PARTS", String.valueOf(hourOfDay) + ":" + String.valueOf(minute));
+                    }
+                },
+                13, // 初期値（時間）
+                0,  // 初期値（分）
+                true);  // trueは24時間表記、falseは午前、午後を選択する形
+        timePickerDialog.show();  // showメソッドでTimePickerDialogを表示
+    }
 }
