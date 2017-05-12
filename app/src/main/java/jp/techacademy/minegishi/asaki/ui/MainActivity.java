@@ -5,6 +5,7 @@ package jp.techacademy.minegishi.asaki.ui;
         import android.util.Log;
         import android.view.View;
         import android.widget.Button;
+        import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,5 +21,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("UI_PARTS", "ボタンをタップしました");
             }
         });
+
+        TextView textView = (TextView) findViewById(R.id.textView);
+        textView.setText("テキスト");
     }
 }
