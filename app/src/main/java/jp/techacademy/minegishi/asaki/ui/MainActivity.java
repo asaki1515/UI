@@ -6,7 +6,7 @@ package jp.techacademy.minegishi.asaki.ui;
         import android.view.View;
         import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,14 +14,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         Button button1 = (Button) findViewById(R.id.button1);
-        button1.setOnClickListener(this);
-        // setOnClickListenerメソッドの引数にはonClickメソッドを実装した
-        // クリックリスナークラスを渡す必要がある。
-        // 今回はMainActivityクラス自身(this)を設定。
-    }
-
-    @Override
-    public void onClick(View v) {  // onClickメソッドを実装
-        Log.d("UI_PARTS", "ボタンをタップしました");
+        button1.setOnClickListener(new View.OnClickListener() {  //new View.OnClickListener() {…}無名クラス
+            @Override                                            // OnClickListenerクラスを実装したクラスを指定する以外に直接記述することもできる。
+            public void onClick(View v) {
+                Log.d("UI_PARTS", "ボタンをタップしました");
+            }
+        });
     }
 }
